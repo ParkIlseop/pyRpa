@@ -32,29 +32,28 @@ key.send_keys('16인치', Keys.ENTER)
 time.sleep(2)
 
 # 화면 가장 아래까지 스크롤 내리기
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
+# driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
-postList = driver.find_element(By.TAG_NAME, 'li')
-for num in range(50):
-    searchClass = postList.find_element(By.CSS_SELECTOR, 'adtype_infinity')
-    if searchClass.isDisplayed():
-        continue
-    else:
-        driver.find_element(By.XPATH, '//*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[{0}]/a/div/div[2]/h3'.format(num + 1)).click()
+def click_post(driver, n):
+    driver.find_element(By.XPATH, '//*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[{0}]/a/div/div[2]/h3'.format(n+1)).click()
 
-        html = driver.page_source
-        soup = BeautifulSoup(html, 'html.parser')
+for n in range(30):
+    click_post(driver, n)
+    time.sleep(2)
 
-        # 제목, 가격, 날짜, 작성자, 상태, 본문 정보 추출
-        title = soup.select_one('title').get_text()
-        price = soup.select_one('strong.price').get_text()
-        date = soup.select_one('span.board_time').get_text()
-        user = soup.select_one('strong.nickname').get_text()
-        cond = soup.select_one('p.txt_desc').get_text()
-        text = soup.select_one('div.se-component-content').get_text()
-        content = "제목 : {0}\n가격 : {1}\n날짜 : {2}\n작성자 : {3}\n상태 : {4}\n본문 : {5}".format(title, price, date, user, cond, text)
-        print(content)
-        driver.back()
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+
+    title = soup.select_one('title').get_text()
+    price = soup.select_one('strong.price').get_text()
+    date = soup.select_one('span.board_time').get_text()
+    user = soup.select_one('strong.nickname').get_text()
+    cond = soup.select_one('p.txt_desc').get_text()
+    text = soup.select_one('div.se-component-content').get_text()
+    content = "제목 : {0}\n가격 : {1}\n날짜 : {2}\n작성자 : {3}\n상태 : {4}\n본문 : {5}".format(title, price, date, user, cond, text)
+    print(content)
+    driver.back()
+
 driver.quit()  # 브라우저 닫기
 
 
@@ -106,3 +105,4 @@ driver.quit()  # 브라우저 닫기
 # xpath = //*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[contains(@class ='adtype_infinity')]
 # //*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[5]
 # driver.find_element(By.XPATH, '//*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[{0}]/a/div/div[2]/h3'.format(i + 1)).click()
+# //*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[2]
