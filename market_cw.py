@@ -38,6 +38,11 @@ def click_post(driver, n):
     driver.find_element(By.XPATH, '//*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[{0}]/a/div/div[2]/h3'.format(n+1)).click()
 
 for n in range(30):
+    if n == 4:
+        continue
+
+    # checkClass = driver.find_element(By.CLASS_NAME, 'adtype_infinity')
+
     click_post(driver, n)
     time.sleep(2)
 
@@ -106,3 +111,5 @@ driver.quit()  # 브라우저 닫기
 # //*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[5]
 # driver.find_element(By.XPATH, '//*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[{0}]/a/div/div[2]/h3'.format(i + 1)).click()
 # //*[@id="ct"]/div[2]/div[5]/div/div[2]/ul/li[2]
+
+#
