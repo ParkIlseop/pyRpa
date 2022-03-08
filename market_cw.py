@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 
-driver = webdriver.Chrome('/pyRpa/chromedriver.exe')  # 웹드라이버 켜기
+driver = webdriver.Chrome('C:\\Users\\neope\\PycharmProject\\pyRpa\\pyRpa\\chromedriver.exe')  # 웹드라이버 켜기
 driver.maximize_window()  # 크롬창 최대화
 time.sleep(2)
 
