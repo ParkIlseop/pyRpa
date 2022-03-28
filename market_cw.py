@@ -1,41 +1,5 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
-# from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-import time
-
-driver = webdriver.Chrome('/Users/ilseoppark/pythonProject/pyRpa/chromedriver')  # 웹드라이버 켜기
-driver.maximize_window()  # 크롬창 최대화
-time.sleep(2)
-
-# 네이버 로그인
-driver.get('https://nid.naver.com/nidlogin.login?svctype=262144')
-id = 'neopenta'
-pw = 'neo97013284penta'
-driver.execute_script("document.getElementsByName('id')[0].value=\'" + id + "\'")
-time.sleep(2)
-driver.execute_script("document.getElementsByName('pw')[0].value=\'" + pw + "\'")
-time.sleep(2)
-login_btn = driver.find_element(By.ID, 'log.login').click()  # Id로 검색
-time.sleep(2)
-
-# 카페 메뉴 > 중고장터로 이동 > '16인치' 검색 및 이동
-gocafe = driver.find_element(By.XPATH, '//*[@id="HOME_SHORTCUT"]/ul/li[6]/a').click()
-time.sleep(2)
-gomarket = driver.find_element(By.XPATH, '//*[@id="ct"]/div[2]/div[3]/div[1]/div[2]/a').click()
-time.sleep(2)
-search = driver.find_element(By.XPATH, '//*[@id="hd"]/div/div[3]/a').click()
-time.sleep(2)
-key = driver.find_element(By.XPATH, '//*[@id="cafe_search"]')
-key.send_keys('16인치', Keys.ENTER)
-time.sleep(2)
-
-# 화면 가장 아래까지 스크롤 내리기
-# driver.execute_script("window.scrollTo(0, document.body.scrollHeight)")
-
-from bs4 import BeautifulSoup
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
@@ -73,7 +37,12 @@ findList_area = soup.select('#ct > div > div > div.search_results_list > div.sea
 
 # 매물 제목 먼저 가져오기
 for findItemTitle in findList_area:
-    itemTitle = findItemTitle.select_one('a > div > strong.title').text
-    print(itemTitle)
+
+    try:
+        itemTitle = findItemTitle.select_one('a > div > strong.title').text
+        print(itemTitle)
+    except:
+        AttributeError
+        continue
 
 driver.quit()
